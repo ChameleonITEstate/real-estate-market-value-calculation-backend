@@ -1,6 +1,7 @@
 package ru.chameleon.estate.controller;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,7 +38,7 @@ public class RegistrationController {
         if (usersList.isEmpty()){
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok().body(usersList);
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(usersList);
     }
 
     @GetMapping("/users/{id}")
@@ -46,7 +47,7 @@ public class RegistrationController {
             return ResponseEntity.notFound().build();
         }
         User showUser = userService.getUserById(userId);
-        return ResponseEntity.ok().body(showUser);
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(showUser);
     }
 
     @PostMapping("/users")
