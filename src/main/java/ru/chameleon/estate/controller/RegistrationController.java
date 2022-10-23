@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.chameleon.estate.dto.UserDTO;
 import ru.chameleon.estate.entity.User;
+import ru.chameleon.estate.exception.UserAlreadyExistException;
 import ru.chameleon.estate.service.abstraction.UserService;
 
 import java.util.List;
@@ -46,13 +47,8 @@ public class RegistrationController {
         return ResponseEntity.ok().body(showUser);
     }
 
-    @PostMapping("/users/")
-    public ResponseEntity<User> addUserEndpoint(@RequestBody UserDTO userDto) {
-        User user = new User();
-        user.setUserId(userDto.userId());
-        user.setEmail(userDto.email());
-        user.setName(userDto.name());
-        user.setPassword(passwordEncoder.encode(userDto.password()));
+    @PostMapping("/users")
+    public ResponseEntity<User> addUser(@RequestBody User user) throws UserAlreadyExistException {
         userService.addUser(user);
         return ResponseEntity.ok().body(user);
     }
