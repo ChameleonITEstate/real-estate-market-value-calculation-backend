@@ -1,6 +1,5 @@
 package ru.chameleon.estate.service.abstraction;
 
-import org.springframework.stereotype.Service;
 import ru.chameleon.estate.entity.Role;
 
 import java.util.List;

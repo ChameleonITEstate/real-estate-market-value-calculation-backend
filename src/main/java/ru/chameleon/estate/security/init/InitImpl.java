@@ -1,5 +1,6 @@
 package ru.chameleon.estate.security.init;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.chameleon.estate.entity.Role;
@@ -9,11 +10,14 @@ import ru.chameleon.estate.service.abstraction.RoleService;
 import ru.chameleon.estate.service.abstraction.UserService;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Component
+@Slf4j
 public class InitImpl implements Init {
     private final UserService userService;
     private final RoleService roleService;

@@ -1,5 +1,6 @@
 package ru.chameleon.estate.security.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -16,8 +17,12 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import ru.chameleon.estate.security.SecurityBasicAuthenticationEntryPoint;
 import ru.chameleon.estate.service.abstraction.UserService;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
+@Slf4j
 public class WebSecurityConfig {
 
     private final SecurityBasicAuthenticationEntryPoint authenticationEntryPoint;

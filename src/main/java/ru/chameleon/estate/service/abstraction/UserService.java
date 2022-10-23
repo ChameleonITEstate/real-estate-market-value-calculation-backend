@@ -3,7 +3,6 @@ package ru.chameleon.estate.service.abstraction;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 import ru.chameleon.estate.entity.User;
 import ru.chameleon.estate.exception.UserAlreadyExistException;
 

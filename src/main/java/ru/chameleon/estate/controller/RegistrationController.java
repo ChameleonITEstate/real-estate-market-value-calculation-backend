@@ -5,13 +5,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.chameleon.estate.dto.UserDTO;
 import ru.chameleon.estate.entity.User;
 import ru.chameleon.estate.service.abstraction.UserService;
 
-import java.util.HashSet;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/test")
@@ -25,28 +28,50 @@ public class RegistrationController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/login")
-    public String loginEndpoint() {
-        return "Login!";
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> listAllUsers() {
+        List<User> usersList = userService.getUsers();
+        if (usersList.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok().body(usersList);
     }
 
-    @GetMapping("/admin")
-    public String adminEndpoint() {
-        return "Admin!";
+    @GetMapping("/users/{id}")
+    public ResponseEntity<User> showUserEndpoint(@PathVariable("id") long userId) {
+        if (userService.getUserById(userId) == null){
+            return ResponseEntity.notFound().build();
+        }
+        User showUser = userService.getUserById(userId);
+        return ResponseEntity.ok().body(showUser);
     }
 
-    @GetMapping("/user")
-    public ResponseEntity<User> userEndpoint() {
-        return new ResponseEntity<>(new User(6L, "testName", "testLastName", "test@email.com", passwordEncoder.encode("testPassword"),new HashSet<>()), HttpStatus.ACCEPTED);
+    @PostMapping("/users/")
+    public ResponseEntity<User> addUserEndpoint(@RequestBody UserDTO userDto) {
+        User user = new User();
+        user.setUserId(userDto.userId());
+        user.setEmail(userDto.email());
+        user.setName(userDto.name());
+        user.setPassword(passwordEncoder.encode(userDto.password()));
+        userService.addUser(user);
+        return ResponseEntity.ok().body(user);
     }
 
-    @GetMapping("/all")
-    public String allRolesEndpoint() {
-        return "All Roles!";
-    }
+//    @PutMapping("/users")
+//    public ResponseEntity<User> updateUser(@RequestBody UserDTO userDto) throws UserAlreadyExistException {
+//        if (userService.getUserById(userDto.userId()) == null){
+//            return ResponseEntity.notFound().build();
+//        }
+//        userService.updateUser(userDto, userDto.userId());
+//        return ResponseEntity.ok().body(userDto);
+//    }
 
-    @DeleteMapping("/delete")
-    public String deleteEndpoint(@RequestBody String s) {
-        return "I am deleting " + s;
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<User> deleteUser(@PathVariable("id") long id) {
+        if (userService.getUserById(id) == null){
+            return ResponseEntity.notFound().build();
+        }
+        userService.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
