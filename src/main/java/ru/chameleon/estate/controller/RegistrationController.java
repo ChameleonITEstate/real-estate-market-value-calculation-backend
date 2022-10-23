@@ -3,6 +3,7 @@ package ru.chameleon.estate.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/test")
+@CrossOrigin(value = {"http://localhost:3000", "https://real-estate-value-calculator.herokuapp.com/"})
 public class RegistrationController {
 
     private final UserService userService;
