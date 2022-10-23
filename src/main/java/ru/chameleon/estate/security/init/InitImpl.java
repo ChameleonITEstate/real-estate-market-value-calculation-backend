@@ -10,8 +10,6 @@ import ru.chameleon.estate.service.abstraction.RoleService;
 import ru.chameleon.estate.service.abstraction.UserService;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

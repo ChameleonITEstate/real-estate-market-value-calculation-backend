@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ru.chameleon.estate.security.validation.annotation.ValidEmail;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,6 +29,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@ValidEmail
 @Table(name = "users")
 public class User implements UserDetails {
     /**

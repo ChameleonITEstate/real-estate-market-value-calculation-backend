@@ -29,8 +29,8 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public AuthenticationManager authManager(HttpSecurity http, PasswordEncoder bCryptPasswordEncoder, UserService userDetailService)
-            throws Exception {
+    public AuthenticationManager authManager(
+            HttpSecurity http, PasswordEncoder bCryptPasswordEncoder, UserService userDetailService) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
                 .userDetailsService(userDetailService)
                 .passwordEncoder(bCryptPasswordEncoder)
@@ -38,6 +38,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                 .build();
     }
 
+    //CORS для фронта
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
@@ -75,6 +76,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 //        return http.build();
 //    }
 
+    //доступ без авторизации
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/**").permitAll();
@@ -85,5 +87,4 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     public PasswordEncoder bcryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }
