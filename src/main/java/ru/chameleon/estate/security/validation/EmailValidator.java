@@ -1,6 +1,6 @@
 package ru.chameleon.estate.security.validation;
 
-import ru.chameleon.estate.security.validation.annotations.ValidEmail;
+import ru.chameleon.estate.security.validation.annotation.ValidEmail;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
