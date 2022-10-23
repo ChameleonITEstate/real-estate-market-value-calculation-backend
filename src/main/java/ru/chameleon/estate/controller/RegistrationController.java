@@ -2,6 +2,7 @@ package ru.chameleon.estate.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,10 +17,12 @@ import java.util.HashSet;
 @RequestMapping("/api/test")
 public class RegistrationController {
 
-    public final UserService userService;
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
-    public RegistrationController(UserService userService) {
+    public RegistrationController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/login")
@@ -34,7 +37,7 @@ public class RegistrationController {
 
     @GetMapping("/user")
     public ResponseEntity<User> userEndpoint() {
-        return new ResponseEntity<>(new User(6L, "testName", "testLastName", "test@email.com", "testPassword",new HashSet<>()), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(new User(6L, "testName", "testLastName", "test@email.com", passwordEncoder.encode("testPassword"),new HashSet<>()), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/all")
