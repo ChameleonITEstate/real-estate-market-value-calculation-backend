@@ -1,14 +1,26 @@
 package ru.chameleon.estate.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.chameleon.estate.entity.User;
+import ru.chameleon.estate.service.abstraction.UserService;
+
+import java.util.HashSet;
 
 @RestController
-@RequestMapping("/registration/api")
+@RequestMapping("/api/test")
 public class RegistrationController {
+
+    public final UserService userService;
+
+    public RegistrationController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/login")
     public String loginEndpoint() {
@@ -21,8 +33,8 @@ public class RegistrationController {
     }
 
     @GetMapping("/user")
-    public String userEndpoint() {
-        return "User!";
+    public ResponseEntity<User> userEndpoint() {
+        return new ResponseEntity<>(new User(6L, "testName", "testLastName", "test@email.com", "testPassword",new HashSet<>()), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/all")

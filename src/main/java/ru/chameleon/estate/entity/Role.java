@@ -35,6 +35,10 @@ public class Role implements GrantedAuthority {
     @ToString.Exclude
     private Set<User> users;
 
+    public Role(String roleName) {
+        this.roleName = roleName;
+    }
+
     @Override
     public String getAuthority() {
         return getRoleName();
