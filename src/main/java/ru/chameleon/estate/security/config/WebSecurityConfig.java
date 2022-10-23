@@ -82,18 +82,11 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 //        return http.build();
 //    }
 
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//                .antMatchers("/securityNone")
-//                .permitAll()
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .httpBasic()
-//                .authenticationEntryPoint(authenticationEntryPoint);
-//        return http.build();
-//    }
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.authorizeRequests().antMatchers("/**").permitAll();
+        return http.build();
+    }
 
     @Bean
     public PasswordEncoder bcryptPasswordEncoder() {
