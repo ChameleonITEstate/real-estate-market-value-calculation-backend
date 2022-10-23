@@ -21,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/test")
-@CrossOrigin(value = {"http://localhost:3000", "https://real-estate-value-calculator.herokuapp.com/"})
+@CrossOrigin(origins = {"http://localhost:3000/", "https://real-estate-value-calculator.herokuapp.com/"})
 public class RegistrationController {
 
     private final UserService userService;
