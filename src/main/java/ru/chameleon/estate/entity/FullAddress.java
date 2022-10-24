@@ -33,6 +33,7 @@ public class FullAddress {
     @Column(name = "city")
     private String city;
     /**
+     * necessary
      * District
      */
     @Column(name = "district")

@@ -22,7 +22,7 @@ public class EstateEntity {
     @Column(name = "estate_id")
     private Long estateId;
     /**
-     * necessary
+     * NotNull
      * Full Address
      */
     @OneToOne(mappedBy = "estate", cascade = CascadeType.ALL)
@@ -35,7 +35,7 @@ public class EstateEntity {
     private Integer numberOfRooms;
     /**
      * necessary
-     * Number of Rooms
+     * Number of Floors
      */
     @Column(name = "number_of_floors")
     private Integer numberOfFloors;
